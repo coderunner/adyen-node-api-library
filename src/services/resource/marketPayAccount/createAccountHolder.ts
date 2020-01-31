@@ -18,31 +18,17 @@
  * This file is open source and available under the MIT license.
  * See the LICENSE file for more info.
  */
+import Resource from "../../resource";
+import Service from "../../../service";
+import Client from "../../../client";
 
-import { IncomingHttpHeaders } from "http";
-
-class HttpClientException implements Error {
-  public statusCode = 500;
-  public errorCode: string | undefined;
-  public responseHeaders: IncomingHttpHeaders | undefined;
-  public readonly message: string;
-  public readonly name: string;
-  public responseBody: string | undefined;
-
-  public constructor(
-    message: string,
-    statusCode?: number,
-    errorCode?: string,
-    responseHeaders?: IncomingHttpHeaders,
-    responseBody?: string
-  ) {
-    this.name = "HttpClientException";
-    this.message = message;
-    if (errorCode) this.errorCode = errorCode;
-    if (statusCode) this.statusCode = statusCode;
-    if (responseHeaders) this.responseHeaders = responseHeaders;
-    if (responseBody) this.responseBody = responseBody;
+class CreateAccountHolder extends Resource {
+  public constructor(service: Service) {
+    super(
+      service,
+      `${service.client.config.marketPayEndpoint}/Account/${Client.MARKETPAY_ACCOUNT_API_VERSION}/createAccountHolder`
+    );
   }
 }
 
-export default HttpClientException;
+export default CreateAccountHolder;
